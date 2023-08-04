@@ -43,7 +43,7 @@ function onSearchForm(event) {
   /////////// API
   apiService.fetchHits().then(hitsPromise => {
     appendHitsMarkup(hitsPromise);
-
+    lightbox.refresh();
     hideLoader();
 
     if (hitsPromise.totalHits > 0) {
@@ -75,10 +75,8 @@ function onLoadMore() {
   //////// API
   apiService.fetchHits().then(hitsPromise => {
     appendHitsMarkup(hitsPromise);
-
-    hideLoader();
-
     lightbox.refresh();
+    hideLoader();
 
     if (hitsPromise.hits.length > 0) {
       loadMoreBtn.style.display = 'block';
