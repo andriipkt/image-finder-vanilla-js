@@ -17,9 +17,9 @@ export default class ApiService {
 
     return fetch(URL)
       .then(response => response.json())
-      .then(({ hits }) => {
+      .then(hitsPromise => {
         this.incrementPage();
-        return hits;
+        return hitsPromise;
       });
   }
 
