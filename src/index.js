@@ -26,7 +26,7 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 
 let isLoading = false;
 
-function onSearchForm(event) {
+async function onSearchForm(event) {
   event.preventDefault();
 
   apiService.query = event.currentTarget.elements.searchQuery.value;
@@ -41,7 +41,8 @@ function onSearchForm(event) {
   clearHitsGallery();
 
   /////////// API
-  apiService.fetchHits().then(hitsPromise => {
+  try {
+    const hitsPromise = await apiService.fetchHits();
     appendHitsMarkup(hitsPromise);
     lightbox.refresh();
     hideLoader();
@@ -61,10 +62,12 @@ function onSearchForm(event) {
         'Close'
       );
     }
-  });
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
-function onLoadMore() {
+async function onLoadMore() {
   if (isLoading) {
     return;
   }
@@ -73,7 +76,8 @@ function onLoadMore() {
   showLoader();
 
   //////// API
-  apiService.fetchHits().then(hitsPromise => {
+  try {
+    const hitsPromise = await apiService.fetchHits();
     appendHitsMarkup(hitsPromise);
     lightbox.refresh();
     hideLoader();
@@ -84,12 +88,14 @@ function onLoadMore() {
       loadMoreBtn.style.display = 'none';
 
       Notiflix.Report.info(
-        'Title',
+        'The end..',
         "We're sorry, but you've reached the end of search results.",
         'Close'
       );
     }
-  });
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 function appendHitsMarkup(hitsPromise) {

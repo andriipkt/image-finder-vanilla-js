@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 // axios.defaults.headers.common['x-api-key'] =
 //   '37124750-bb2205b7594ee961e8dd1b6b7';
@@ -12,15 +12,24 @@ export default class ApiService {
     this.page = 1;
   }
 
-  fetchHits() {
+  async fetchHits() {
     const URL = `${BASE_URL}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`;
 
-    return fetch(URL)
-      .then(response => response.json())
-      .then(hitsPromise => {
-        this.incrementPage();
-        return hitsPromise;
-      });
+    try {
+      const response = await axios.get(URL);
+      this.incrementPage();
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+
+    // return fetch(URL)
+    //   .then(response => response.json())
+    //   .then(hitsPromise => {
+    //     this.incrementPage();
+    //     return hitsPromise;
+    //   });
   }
 
   incrementPage() {
