@@ -1,11 +1,11 @@
 {
-  "name": "parcel-project-template",
+  "name": "image-finder-vanilla-js/",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://github.com/andriipkt/goit-js-hw-11",
+  "homepage": "https://github.com/andriipkt/image-finder-vanilla-js/",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
+    "build": "parcel build src/*.html --public-url /image-finder-vanilla-js//"
   },
   "repository": {
     "type": "git",
